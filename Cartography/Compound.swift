@@ -29,7 +29,7 @@ public protocol RelativeCompoundEquality : Compound { }
 ///
 /// :returns: An `NSLayoutConstraint`.
 ///
-public func == <P: RelativeCompoundEquality>(lhs: P, rhs: Expression<P>) -> [NSLayoutConstraint] {
+public func == <P: RelativeCompoundEquality>(lhs: P, rhs: CARExpression<P>) -> [NSLayoutConstraint] {
     return lhs.context.addConstraint(lhs, coefficients: rhs.coefficients, to: rhs.value)
 }
 
@@ -79,7 +79,7 @@ public func >= <P: RelativeCompoundInequality>(lhs: P, rhs: P) -> [NSLayoutConst
 ///
 /// :returns: An `NSLayoutConstraint`.
 ///
-public func <= <P: RelativeCompoundInequality>(lhs: P, rhs: Expression<P>) -> [NSLayoutConstraint] {
+public func <= <P: RelativeCompoundInequality>(lhs: P, rhs: CARExpression<P>) -> [NSLayoutConstraint] {
     return lhs.context.addConstraint(lhs, coefficients: rhs.coefficients, to: rhs.value, relation: NSLayoutRelation.LessThanOrEqual)
 }
 
@@ -91,6 +91,6 @@ public func <= <P: RelativeCompoundInequality>(lhs: P, rhs: Expression<P>) -> [N
 ///
 /// :returns: An `NSLayoutConstraint`.
 ///
-public func >= <P: RelativeCompoundInequality>(lhs: P, rhs: Expression<P>) -> [NSLayoutConstraint] {
+public func >= <P: RelativeCompoundInequality>(lhs: P, rhs: CARExpression<P>) -> [NSLayoutConstraint] {
     return lhs.context.addConstraint(lhs, coefficients: rhs.coefficients, to: rhs.value, relation: NSLayoutRelation.GreaterThanOrEqual)
 }

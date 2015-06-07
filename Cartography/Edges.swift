@@ -29,7 +29,7 @@ public struct Edges: Compound, RelativeCompoundEquality, RelativeCompoundInequal
 ///
 /// :returns: A new expression with the inset edges.
 ///
-public func inset(edges: Edges, all: CGFloat) -> Expression<Edges> {
+public func inset(edges: Edges, all: CGFloat) -> CARExpression<Edges> {
     return inset(edges, all, all, all, all)
 }
 
@@ -43,7 +43,7 @@ public func inset(edges: Edges, all: CGFloat) -> Expression<Edges> {
 ///
 /// :returns: A new expression with the inset edges.
 ///
-public func inset(edges: Edges, horizontal: CGFloat, vertical: CGFloat) -> Expression<Edges> {
+public func inset(edges: Edges, horizontal: CGFloat, vertical: CGFloat) -> CARExpression<Edges> {
     return inset(edges, vertical, horizontal, vertical, horizontal)
 }
 
@@ -57,8 +57,8 @@ public func inset(edges: Edges, horizontal: CGFloat, vertical: CGFloat) -> Expre
 ///
 /// :returns: A new expression with the inset edges.
 ///
-public func inset(edges: Edges, top: CGFloat, leading: CGFloat, bottom: CGFloat, trailing: CGFloat) -> Expression<Edges> {
-    return Expression(edges, [
+public func inset(edges: Edges, top: CGFloat, leading: CGFloat, bottom: CGFloat, trailing: CGFloat) -> CARExpression<Edges> {
+    return CARExpression(edges, [
         Coefficients(1, top),
         Coefficients(1, leading),
         Coefficients(1, -bottom),

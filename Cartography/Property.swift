@@ -48,7 +48,7 @@ public protocol RelativeEquality : Property { }
 ///
 /// :returns: An `NSLayoutConstraint`.
 ///
-public func == <P: RelativeEquality>(lhs: P, rhs: Expression<P>) -> NSLayoutConstraint {
+public func == <P: RelativeEquality>(lhs: P, rhs: CARExpression<P>) -> NSLayoutConstraint {
     return lhs.context.addConstraint(lhs, coefficients: rhs.coefficients[0], to: rhs.value)
 }
 
@@ -128,7 +128,7 @@ public func >= <P: RelativeInequality>(lhs: P, rhs: P) -> NSLayoutConstraint {
 ///
 /// :returns: An `NSLayoutConstraint`.
 ///
-public func <= <P: RelativeInequality>(lhs: P, rhs: Expression<P>) -> NSLayoutConstraint {
+public func <= <P: RelativeInequality>(lhs: P, rhs: CARExpression<P>) -> NSLayoutConstraint {
     return lhs.context.addConstraint(lhs, coefficients: rhs.coefficients[0], to: rhs.value, relation: NSLayoutRelation.LessThanOrEqual)
 }
 
@@ -140,7 +140,7 @@ public func <= <P: RelativeInequality>(lhs: P, rhs: Expression<P>) -> NSLayoutCo
 ///
 /// :returns: An `NSLayoutConstraint`.
 ///
-public func >= <P: RelativeInequality>(lhs: P, rhs: Expression<P>) -> NSLayoutConstraint {
+public func >= <P: RelativeInequality>(lhs: P, rhs: CARExpression<P>) -> NSLayoutConstraint {
     return lhs.context.addConstraint(lhs, coefficients: rhs.coefficients[0], to: rhs.value, relation: NSLayoutRelation.GreaterThanOrEqual)
 }
 
@@ -148,35 +148,35 @@ public func >= <P: RelativeInequality>(lhs: P, rhs: Expression<P>) -> NSLayoutCo
 
 public protocol Addition : Property { }
 
-public func + <P: Addition>(c: CGFloat, rhs: P) -> Expression<P> {
-    return Expression(rhs, [ Coefficients(1, c) ])
+public func + <P: Addition>(c: CGFloat, rhs: P) -> CARExpression<P> {
+    return CARExpression(rhs, [ Coefficients(1, c) ])
 }
 
-public func + <P: Addition>(lhs: P, rhs: CGFloat) -> Expression<P> {
+public func + <P: Addition>(lhs: P, rhs: CGFloat) -> CARExpression<P> {
     return rhs + lhs
 }
 
-public func + <P: Addition>(c: CGFloat, rhs: Expression<P>) -> Expression<P> {
-    return Expression(rhs.value, rhs.coefficients.map { $0 + c })
+public func + <P: Addition>(c: CGFloat, rhs: CARExpression<P>) -> CARExpression<P> {
+    return CARExpression(rhs.value, rhs.coefficients.map { $0 + c })
 }
 
-public func + <P: Addition>(lhs: Expression<P>, rhs: CGFloat) -> Expression<P> {
+public func + <P: Addition>(lhs: CARExpression<P>, rhs: CGFloat) -> CARExpression<P> {
     return rhs + lhs
 }
 
-public func - <P: Addition>(c: CGFloat, rhs: P) -> Expression<P> {
-    return Expression(rhs, [ Coefficients(1, -c) ])
+public func - <P: Addition>(c: CGFloat, rhs: P) -> CARExpression<P> {
+    return CARExpression(rhs, [ Coefficients(1, -c) ])
 }
 
-public func - <P: Addition>(lhs: P, rhs: CGFloat) -> Expression<P> {
+public func - <P: Addition>(lhs: P, rhs: CGFloat) -> CARExpression<P> {
     return rhs - lhs
 }
 
-public func - <P: Addition>(c: CGFloat, rhs: Expression<P>) -> Expression<P> {
-    return Expression(rhs.value, rhs.coefficients.map { $0 - c})
+public func - <P: Addition>(c: CGFloat, rhs: CARExpression<P>) -> CARExpression<P> {
+    return CARExpression(rhs.value, rhs.coefficients.map { $0 - c})
 }
 
-public func - <P: Addition>(lhs: Expression<P>, rhs: CGFloat) -> Expression<P> {
+public func - <P: Addition>(lhs: CARExpression<P>, rhs: CGFloat) -> CARExpression<P> {
     return rhs - lhs
 }
 
@@ -184,26 +184,26 @@ public func - <P: Addition>(lhs: Expression<P>, rhs: CGFloat) -> Expression<P> {
 
 public protocol Multiplication : Property { }
 
-public func * <P: Multiplication>(m: CGFloat, rhs: Expression<P>) -> Expression<P> {
-    return Expression(rhs.value, rhs.coefficients.map { $0 * m })
+public func * <P: Multiplication>(m: CGFloat, rhs: CARExpression<P>) -> CARExpression<P> {
+    return CARExpression(rhs.value, rhs.coefficients.map { $0 * m })
 }
 
-public func * <P: Multiplication>(lhs: Expression<P>, rhs: CGFloat) -> Expression<P> {
+public func * <P: Multiplication>(lhs: CARExpression<P>, rhs: CGFloat) -> CARExpression<P> {
     return rhs * lhs
 }
 
-public func * <P: Multiplication>(m: CGFloat, rhs: P) -> Expression<P> {
-    return Expression(rhs, [ Coefficients(m, 0) ])
+public func * <P: Multiplication>(m: CGFloat, rhs: P) -> CARExpression<P> {
+    return CARExpression(rhs, [ Coefficients(m, 0) ])
 }
 
-public func * <P: Multiplication>(lhs: P, rhs: CGFloat) -> Expression<P> {
+public func * <P: Multiplication>(lhs: P, rhs: CGFloat) -> CARExpression<P> {
     return rhs * lhs
 }
 
-public func / <P: Multiplication>(lhs: Expression<P>, rhs: CGFloat) -> Expression<P> {
+public func / <P: Multiplication>(lhs: CARExpression<P>, rhs: CGFloat) -> CARExpression<P> {
     return lhs * (1 / rhs)
 }
 
-public func / <P: Multiplication>(lhs: P, rhs: CGFloat) -> Expression<P> {
+public func / <P: Multiplication>(lhs: P, rhs: CGFloat) -> CARExpression<P> {
     return lhs * (1 / rhs)
 }

@@ -1,5 +1,5 @@
 //
-//  Expression.swift
+//  CARExpression.swift
 //  Cartography
 //
 //  Created by Robert Böhnke on 17/06/14.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Expression<T> {
+public struct CARExpression<T> {
     let value: T
     var coefficients: [Coefficients]
 
